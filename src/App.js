@@ -1,25 +1,62 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import { BrowserRouter as Router, Route, Link, Routes } from 'react-router-dom';
+import Home from './components/Home';
+import CarList from './components/CarList';
+import CarDetails from './components/CarDetails';
+import NotFound from './components/NotFound';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <div>
+        <header style={headerStyle}>
+          <nav style={navStyle}>
+            <ul style={ulStyle}>
+              <li style={liStyle}>
+                <Link to="/" style={linkStyle}>Home</Link>
+              </li>
+              <li style={liStyle}>
+                <Link to="/cars" style={linkStyle}>Cars</Link>
+              </li>
+            </ul>
+          </nav>
+        </header>
+
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/cars" element={<CarList />} />
+          <Route path="/cars/:id" element={<CarDetails />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </div>
+    </Router>
   );
 }
+
+// Styling
+const headerStyle = {
+  backgroundColor: '#f4f4f4',
+  padding: '10px',
+};
+
+const navStyle = {
+  display: 'flex',
+  justifyContent: 'center',
+};
+
+const ulStyle = {
+  listStyle: 'none',
+  display: 'flex',
+  gap: '10px',
+};
+
+const liStyle = {
+  padding: '5px',
+};
+
+const linkStyle = {
+  textDecoration: 'none',
+  color: 'black',
+};
 
 export default App;
